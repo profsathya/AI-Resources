@@ -1,0 +1,46 @@
+{
+  "name": "p5js-mermaid-support",
+  "version": "1.0.0",
+  "description": "Mermaid diagram support implementation for p5.js-website",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/processing/p5.js-website/issues/168"
+  },
+  "keywords": [
+    "p5js",
+    "mermaid",
+    "astro",
+    "remark-plugin",
+    "mdx"
+  ],
+  "dependencies": {
+    "mermaid": "^10.9.0",
+    "jsdom": "^24.0.0",
+    "unist-util-visit": "^5.0.0"
+  },
+  "peerDependencies": {
+    "astro": "^4.0.0",
+    "@astrojs/mdx": "^2.0.0",
+    "rehype-raw": "^7.0.0"
+  },
+  "devDependencies": {
+    "rehype-raw": "^7.0.0"
+  },
+  "files": [
+    "src/plugins/remark-mermaid.mjs",
+    "src/styles/mermaid.scss"
+  ],
+  "exports": {
+    "./plugin": "./src/plugins/remark-mermaid.mjs",
+    "./styles": "./src/styles/mermaid.scss"
+  },
+  "scripts": {
+    "test": "node --test tests/",
+    "lint": "eslint src/"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

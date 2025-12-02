@@ -1,0 +1,195 @@
+/**
+ * Mermaid Diagram Styles
+ *
+ * Theme-aware styles for Mermaid diagrams rendered at build time.
+ * Supports automatic switching between light and dark themed SVGs
+ * based on the site's theme setting.
+ *
+ * @see https://github.com/processing/p5.js-website/issues/168
+ */
+
+// =============================================================================
+// MERMAID DIAGRAM CONTAINER
+// =============================================================================
+
+.mermaid-diagram {
+  // Layout
+  display: block;
+  margin: 2rem auto;
+  padding: 1rem;
+  max-width: 100%;
+  overflow-x: auto;
+
+  // Styling
+  background-color: var(--mermaid-bg, #ffffff);
+  border: 1px solid var(--mermaid-border, #e5e7eb);
+  border-radius: 0.5rem;
+
+  // By default, show light theme and hide dark theme
+  .mermaid-light {
+    display: block;
+  }
+
+  .mermaid-dark {
+    display: none;
+  }
+
+  // SVG styling
+  svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+
+    // Ensure text is readable
+    text {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+        Roboto, 'Helvetica Neue', Arial, sans-serif;
+    }
+  }
+
+  // Screen reader only caption
+  figcaption.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+}
+
+// =============================================================================
+// DARK MODE SUPPORT
+// =============================================================================
+
+// Option 1: Using data-theme attribute (common pattern)
+[data-theme='dark'] .mermaid-diagram,
+html.dark .mermaid-diagram,
+body.dark .mermaid-diagram {
+  --mermaid-bg: #1f2937;
+  --mermaid-border: #374151;
+
+  .mermaid-light {
+    display: none;
+    aria-hidden: true;
+  }
+
+  .mermaid-dark {
+    display: block;
+    aria-hidden: false;
+  }
+}
+
+// Option 2: Using prefers-color-scheme media query
+// Uncomment if the site relies on system preference without a toggle
+/*
+@media (prefers-color-scheme: dark) {
+  .mermaid-diagram {
+    --mermaid-bg: #1f2937;
+    --mermaid-border: #374151;
+
+    .mermaid-light {
+      display: none;
+    }
+
+    .mermaid-dark {
+      display: block;
+    }
+  }
+}
+*/
+
+// =============================================================================
+// ERROR STATE
+// =============================================================================
+
+.mermaid-error {
+  padding: 1rem;
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 0.5rem;
+  color: #991b1b;
+
+  p {
+    margin: 0 0 0.5rem;
+    font-weight: 600;
+  }
+
+  pre {
+    margin: 0;
+    padding: 0.75rem;
+    background-color: #fff;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+    overflow-x: auto;
+  }
+
+  [data-theme='dark'] &,
+  .dark & {
+    background-color: #450a0a;
+    border-color: #7f1d1d;
+    color: #fecaca;
+
+    pre {
+      background-color: #1f2937;
+    }
+  }
+}
+
+// =============================================================================
+// RESPONSIVE ADJUSTMENTS
+// =============================================================================
+
+@media (max-width: 640px) {
+  .mermaid-diagram {
+    margin: 1rem 0;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+
+    // Allow horizontal scroll for complex diagrams
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+
+    svg {
+      min-width: min-content;
+    }
+  }
+}
+
+// =============================================================================
+// PRINT STYLES
+// =============================================================================
+
+@media print {
+  .mermaid-diagram {
+    // Always show light theme for printing
+    .mermaid-light {
+      display: block !important;
+    }
+
+    .mermaid-dark {
+      display: none !important;
+    }
+
+    // Remove background for better printing
+    background-color: transparent;
+    border: 1px solid #000;
+    break-inside: avoid;
+  }
+}
+
+// =============================================================================
+// ANIMATION (Optional)
+// =============================================================================
+
+// Fade transition when switching themes
+.mermaid-diagram {
+  .mermaid-light,
+  .mermaid-dark {
+    transition: opacity 0.2s ease-in-out;
+  }
+}
